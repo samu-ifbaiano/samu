@@ -135,3 +135,13 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+
+
+# caso precise recompilar o custom.css, baixar o bootstrap e colocar na pasta static/scss/bootstrap/
+# https://getbootstrap.com/docs/4.5/getting-started/download/
+bootstrap/
+bootstrap/*
+.sass-cache/
+.idea/
+.idea/*

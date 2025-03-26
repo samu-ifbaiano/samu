@@ -1,0 +1,29 @@
+// Cores temáticas do SAMU
+$samu-red:     #D10A11;  // Urgência e emergência (primária)
+$samu-orange:  #F07D00;  // Ações preventivas (secundária)
+$samu-green:   #157F27;  // Saúde e inovação (IF)
+$samu-blue:    #005FAD;  // Confiança e tecnologia
+$samu-gray:    #4D4D4D;  // Neutralidade e modernidade
+$white:        #FFFFFF;  // Clareza e transparência
+
+// Sobrescreva as variáveis do Bootstrap
+$primary:       $samu-red;
+$secondary:     $samu-orange;
+$success:       $samu-green;
+$info:          $samu-blue;
+$dark:          $samu-gray;
+
+// Cores de texto (contraste)
+$body-color:    $samu-gray;       // Texto principal
+$headings-color:$samu-red;        // Títulos em vermelho SAMU
+
+// Botões (estados hover/active)
+$btn-hover-bg:           darken($primary, 10%);
+$btn-hover-border-color: darken($primary, 10%);
+
+// Links
+$link-color: $samu-blue;
+$link-hover-color: darken($samu-blue, 15%);
+
+// Alertas (opcional)
+$alert-bg-scale: 0%;  // Evita clareamento automático do Bootstrap
