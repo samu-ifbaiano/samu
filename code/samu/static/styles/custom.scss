@@ -1,0 +1,36 @@
+// 1. Importe suas variáveis primeiro
+@import "variables";
+
+// 2. Importe o Bootstrap completo
+@import "bootstrap/scss/bootstrap.scss";
+
+// 3. Classes utilitárias personalizadas
+.bg-samu-red { background-color: $samu-red; }
+.text-samu-orange { color: $samu-orange; }
+.border-samu-green { border-color: $samu-green; }
+
+// 4. Componentes customizados (exemplo: botão de emergência)
+.btn-emergency {
+  @extend .btn-danger;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-width: 2px;
+}
+
+// 5. Ajustes de acessibilidade
+.bg-samu-red, .btn-primary {
+  color: $white;
+  &:hover {
+    color: $white;
+  }
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Para elementos específicos (ex: títulos) */
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; /* Peso da fonte (bold) */
+}
