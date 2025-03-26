@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMU - Atendimento Automatizado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static '/assets/samu-logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/styles/custom.css' %}">
+    <link rel="stylesheet" href="{% static '/styles/dashboard/main.css' %}">
+</head>
+<body>
+    <div class="container-fluid samu-dashboard">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block bg-primary sidebar">
+                <div class="sidebar-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <img src="{% static '/assets/samu-logo.png' %}" alt="SAMU Logo" class="img-fluid" style="max-width: 120px;">
+                        <h4 class="text-white mt-2">SAMU Automatizado</h4>
+                    </div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white bg-secondary rounded" href="#">
+                                <i class="fas fa-home me-2"></i>
+                                Painel Principal
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-ambulance me-2"></i>
+                                Chamados em Andamento
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-map-marked-alt me-2"></i>
+                                Mapa de Ocorrências
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-users me-2"></i>
+                                Equipes em Campo
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Estatísticas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-archive me-2"></i>
+                                Histórico de Chamados
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
+                        <span>Ferramentas</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-cog me-2"></i>
+                                Configurações
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-user-shield me-2"></i>
+                                Administração
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-question-circle me-2"></i>
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Painel de Controle</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-sync-alt me-1"></i> Atualizar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-download me-1"></i> Exportar
+                            </button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                <i class="fas fa-calendar-alt me-1"></i> Hoje
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Hoje</a></li>
+                                <li><a class="dropdown-item" href="#">Ontem</a></li>
+                                <li><a class="dropdown-item" href="#">Esta semana</a></li>
+                                <li><a class="dropdown-item" href="#">Este mês</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alertas e Status -->
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <div>
+                        <strong>ALERTA:</strong> 3 chamados de prioridade alta em espera
+                    </div>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <!-- Cards de Resumo -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-danger mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title ">CHAMADOS HOJE</h6>
+                                        <h2 class="mb-0 text-white">24</h2>
+                                    </div>
+                                    <i class="fas fa-phone-volume fa-3x opacity-50"></i>
+                                </div>
+                                <p class="card-text mt-2"><small>+15% em relação a ontem</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">EM ANDAMENTO</h6>
+                                        <h2 class="mb-0 text-white">8</h2>
+                                    </div>
+                                    <i class="fas fa-ambulance fa-3x opacity-50"></i>
+                                </div>
+                                <p class="card-text mt-2"><small>3 de prioridade alta</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">ATENDIDOS</h6>
+                                        <h2 class="mb-0 text-white">14</h2>
+                                    </div>
+                                    <i class="fas fa-check-circle fa-3x opacity-50"></i>
+                                </div>
+                                <p class="card-text mt-2"><small>Tempo médio: 12min</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">EQUIPES ATIVAS</h6>
+                                        <h2 class="mb-0 text-white">5</h2>
+                                    </div>
+                                    <i class="fas fa-user-md fa-3x opacity-50"></i>
+                                </div>
+                                <p class="card-text mt-2"><small>2 em deslocamento</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos e Mapas -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Mapa de Ocorrências</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="map-placeholder bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                                    <i class="fas fa-map-marked-alt fa-4x text-muted"></i>
+                                    <p class="ms-3 text-muted">Mapa interativo de ocorrências</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Tipos de Ocorrência</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas class="chart-placeholder" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chamados Recentes -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Chamados Recentes</h5>
+                        <a href="#" class="btn btn-sm btn-outline-danger">Ver todos</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Localização</th>
+                                        <th>Prioridade</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#SAMU-2023-0042</td>
+                                        <td>14:23</td>
+                                        <td>Acidente de trânsito</td>
+                                        <td>Av. Principal, 123</td>
+                                        <td><span class="badge bg-danger">Alta</span></td>
+                                        <td><span class="badge bg-warning">Em andamento</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">Detalhes</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#SAMU-2023-0041</td>
+                                        <td>14:15</td>
+                                        <td>Mal súbito</td>
+                                        <td>Rua das Flores, 45</td>
+                                        <td><span class="badge bg-warning">Média</span></td>
+                                        <td><span class="badge bg-success">Atendido</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">Detalhes</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#SAMU-2023-0040</td>
+                                        <td>13:58</td>
+                                        <td>Queda</td>
+                                        <td>Praça Central</td>
+                                        <td><span class="badge bg-warning">Média</span></td>
+                                        <td><span class="badge bg-success">Atendido</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">Detalhes</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#SAMU-2023-0039</td>
+                                        <td>13:42</td>
+                                        <td>Dor no peito</td>
+                                        <td>Av. Industrial, 789</td>
+                                        <td><span class="badge bg-danger">Alta</span></td>
+                                        <td><span class="badge bg-warning">Em andamento</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">Detalhes</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#SAMU-2023-0038</td>
+                                        <td>13:30</td>
+                                        <td>Febre alta</td>
+                                        <td>Rua das Palmeiras, 12</td>
+                                        <td><span class="badge bg-info">Baixa</span></td>
+                                        <td><span class="badge bg-success">Atendido</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">Detalhes</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal de Novo Chamado -->
+    <div class="modal fade" id="newCallModal" tabindex="-1" aria-labelledby="newCallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="newCallModalLabel">Registrar Novo Chamado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="callerName" class="form-label">Nome do Solicitante</label>
+                                <input type="text" class="form-control" id="callerName">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="callerPhone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="callerPhone">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="callLocation" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="callLocation" placeholder="Endereço ou ponto de referência">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="callType" class="form-label">Tipo de Ocorrência</label>
+                                <select class="form-select" id="callType">
+                                    <option selected>Selecione...</option>
+                                    <option>Acidente de trânsito</option>
+                                    <option>Mal súbito</option>
+                                    <option>Queda</option>
+                                    <option>Dor no peito</option>
+                                    <option>Desmaio</option>
+                                    <option>Convulsão</option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="callPriority" class="form-label">Prioridade</label>
+                                <select class="form-select" id="callPriority">
+                                    <option selected>Selecione...</option>
+                                    <option value="high">Alta</option>
+                                    <option value="medium">Média</option>
+                                    <option value="low">Baixa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="callDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="callDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Registrar Chamado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
